@@ -1,5 +1,13 @@
 type getarg >/dev/null 2>&1 || . /lib/dracut-lib.sh
 
+function getOverlayBaseDirectory {
+    # initialize and print overlay base directory below which
+    # the overlayfs based mountpoints are managed
+    local overlay_base=/run
+    # TODO: create tmpfs mountpoint
+    echo "${overlay_base}"
+}
+
 function resize_filesystem {
     local device=$1
     test -n "${device}" || return
