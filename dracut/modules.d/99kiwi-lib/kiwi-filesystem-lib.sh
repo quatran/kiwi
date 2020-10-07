@@ -3,8 +3,11 @@ type getarg >/dev/null 2>&1 || . /lib/dracut-lib.sh
 function getOverlayBaseDirectory {
     # initialize and print overlay base directory below which
     # the overlayfs based mountpoints are managed
-    local overlay_base=/run
-    # TODO: create tmpfs mountpoint
+    local overlay_base=/overlay
+    mkdir -p "${overlay_base}"
+    if ! mountpoint -q "${overlay_base}";then
+        mount -t tmpfs tmpfs "${overlay_base}"
+    fi
     echo "${overlay_base}"
 }
 
